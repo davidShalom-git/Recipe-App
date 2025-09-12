@@ -8,31 +8,7 @@ const UserRouter = require('./router/UserRoutes');
 
 const app = express();
 
-// MongoDB connection with connection reuse for serverless
-let isConnected = false;
-
-const connectDB = async () => {
-  if (isConnected) {
-    return;
-  }
-  
-  try {
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: false,
-      useCreateIndex: true
-    });
-    
-    isConnected = db.connections[0].readyState;
-    console.log("MongoDB is connected ra daiii....");
-  } catch (err) {
-    console.log("MongoDB Kolaruu", err);
-    throw err;
-  }
-};
+mongoose.connect(process.env.MONGODB_URI).then(() => { console.log("MongoDB is connected ra daiii...."); }).catch((err) => { console.log("MongoDB Kolaruu", err); });
 
 // Middleware
 app.use(cors({
