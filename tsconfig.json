@@ -3,15 +3,19 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"]
+    },
+    "allowJs": true,              // ✅ Allow JavaScript/JSX files
+    "checkJs": false,             // ✅ Optional: set to true if you want TypeScript to check JS files
+    "jsx": "react-native"         // ✅ Ensure JSX is compiled correctly for React Native
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.js",                   // ✅ Include JS files
+    "**/*.jsx",                  // ✅ Include JSX files
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/(tabs)/_layout.jsx"
   ]
 }
