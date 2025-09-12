@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mobile_App",
-    "slug": "Mobile_App",
+    "name": "Recipe_App",
+    "slug": "Recipe_App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.shalom2025.Mobile_App"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "004359ad-7d08-4cfb-9d69-f4e6bdbc559d"
+      }
     }
   }
 }

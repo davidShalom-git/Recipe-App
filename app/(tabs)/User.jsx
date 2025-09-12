@@ -12,7 +12,7 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import { useAuthStore } from '@/store/auth';// Adjust path as needed
+import { useAuthStore } from '@/store/auth';
 
 const RecipeDashboard = () => {
   const [recipes, setRecipes] = useState({
@@ -182,13 +182,29 @@ const RecipeDashboard = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View>
+        <View style={styles.headerLeft}>
           <Text style={styles.headerTitle}>My Recipe Dashboard</Text>
           <Text style={styles.headerSubtitle}>Manage your delicious creations</Text>
         </View>
-        <View style={styles.statsContainer}>
-          <Text style={styles.statsNumber}>{totalRecipes}</Text>
-          <Text style={styles.statsLabel}>Recipes</Text>
+        
+        <View style={styles.headerRight}>
+          {/* Refresh Button */}
+          <TouchableOpacity
+            style={[styles.refreshButton, refreshing && styles.refreshButtonDisabled]}
+            onPress={onRefresh}
+            disabled={refreshing}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.refreshIcon}>
+              {refreshing ? '⏳' : '🔄'}
+            </Text>
+          </TouchableOpacity>
+          
+          {/* Stats Container */}
+          <View style={styles.statsContainer}>
+            <Text style={styles.statsNumber}>{totalRecipes}</Text>
+            <Text style={styles.statsLabel}>Recipes</Text>
+          </View>
         </View>
       </View>
 
@@ -256,6 +272,17 @@ const RecipeDashboard = () => {
             <Text style={styles.emptySubtitle}>
               {searchQuery ? 'Try a different search term' : 'Start creating your first recipe!'}
             </Text>
+            {/* Additional Refresh Button in Empty State */}
+            <TouchableOpacity
+              style={styles.emptyRefreshButton}
+              onPress={onRefresh}
+              disabled={refreshing}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.emptyRefreshButtonText}>
+                {refreshing ? 'Refreshing...' : 'Refresh Recipes'}
+              </Text>
+            </TouchableOpacity>
           </View>
         ) : (
           <View style={styles.recipesGrid}>
@@ -341,6 +368,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
   },
+  headerLeft: {
+    flex: 1,
+  },
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -350,6 +380,34 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6B7280',
     marginTop: 2,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  refreshButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#8B5CF6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#8B5CF6',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  refreshButtonDisabled: {
+    backgroundColor: '#D1D5DB',
+    shadowOpacity: 0.1,
+  },
+  refreshIcon: {
+    fontSize: 18,
   },
   statsContainer: {
     alignItems: 'center',
@@ -553,6 +611,26 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     textAlign: 'center',
     paddingHorizontal: 40,
+    marginBottom: 20,
+  },
+  emptyRefreshButton: {
+    backgroundColor: '#8B5CF6',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+    shadowColor: '#8B5CF6',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  emptyRefreshButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
