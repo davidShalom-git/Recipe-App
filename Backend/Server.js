@@ -8,7 +8,25 @@ const UserRouter = require('./router/UserRoutes');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI).then(() => { console.log("MongoDB is connected ra daiii...."); }).catch((err) => { console.log("MongoDB Kolaruu", err); });
+// MongoDB connection with connection reuse for serverless
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+  
+  try {
+    // Remove deprecated options - Mongoose 6+ handles these automatically
+    const db = await mongoose.connect(process.env.MONGODB_URI);
+    
+    isConnected = db.connections[0].readyState;
+    console.log("MongoDB is connected ra daiii....");
+  } catch (err) {
+    console.log("MongoDB Kolaruu", err);
+    throw err;
+  }
+};
 
 // Middleware
 app.use(cors({
@@ -39,6 +57,7 @@ app.use('/api/auth', UserRouter);
 app.get('/', (req, res) => {
   res.json({ message: 'Server is running on Vercel!' });
 });
+
 
 
 // For local development
