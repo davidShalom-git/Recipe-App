@@ -37,7 +37,7 @@ export default function Index() {
         try {
             console.log('Testing API with token:', token ? 'Token exists' : 'No token');
 
-            const response = await fetch('http://192.168.18.58:4000/api/recipe/breakfast/user', {
+            const response = await fetch('https://recipe-app-rq23.vercel.app/api/recipe/breakfast/user', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

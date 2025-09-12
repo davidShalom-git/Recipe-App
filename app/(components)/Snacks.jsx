@@ -18,7 +18,7 @@ export default function Snacks() {
             setError(null)
             
             // Changed to snacks endpoint
-            const response = await fetch('http://192.168.18.58:4000/api/recipe/all/snacks')
+            const response = await fetch('https://recipe-app-rq23.vercel.app/api/recipe/all/snacks')
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

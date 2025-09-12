@@ -27,7 +27,7 @@ const RecipeDashboard = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   
   const { token } = useAuthStore();
-  const BASE_URL = 'http://192.168.18.58:4000/api/recipe';
+  const BASE_URL = 'https://recipe-app-rq23.vercel.app/api/recipe';
 
   const categories = [
     { key: 'all', name: 'All', icon: '🍽️' },

@@ -11,7 +11,7 @@ export const useAuthStore = create((set, get) => ({
         try {
             set({ isLoading: true });
             
-            const response = await fetch('http://192.168.18.58:4000/api/auth/register', {
+            const response = await fetch('https://recipe-app-rq23.vercel.app/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const useAuthStore = create((set, get) => ({
 Login: async (email, password) => {
     set({ isLoading: true });
     try {
-        const response = await fetch('http://192.168.18.58:4000/api/auth/login', {
+        const response = await fetch('https://recipe-app-rq23.vercel.app/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

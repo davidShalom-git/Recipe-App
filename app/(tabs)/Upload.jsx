@@ -235,9 +235,9 @@ const Upload = () => {
       formDataToSend.append('ingredients', JSON.stringify(formData.ingredients));
       formDataToSend.append('how_to', JSON.stringify(formData.how_to));
 
-      console.log('Making authenticated request to:', `http://192.168.18.58:4000/api/recipe/add/${url}`);
+      console.log('Making authenticated request to:', `https://recipe-app-rq23.vercel.app/api/recipe/add/${url}`);
 
-      const response = await fetch(`http://192.168.18.58:4000/api/recipe/add/${url}`, {
+      const response = await fetch(`https://recipe-app-rq23.vercel.app/api/recipe/add/${url}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`, // Add authentication header

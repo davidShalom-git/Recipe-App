@@ -20,7 +20,7 @@ export default function DetailsFood() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`http://192.168.18.58:4000/api/recipe/snacks/${foodId}`);
+      const response = await fetch(`https://recipe-app-rq23.vercel.app/api/recipe/snacks/${foodId}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

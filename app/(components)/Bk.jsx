@@ -18,7 +18,7 @@ export default function Breakfast() {
             setError(null)
             
             // Changed to breakfast endpoint
-            const response = await fetch('http://192.168.18.58:4000/api/recipe/all/breakfast')
+            const response = await fetch('https://recipe-app-rq23.vercel.app/api/recipe/all/breakfast')
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

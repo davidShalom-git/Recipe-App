@@ -17,7 +17,7 @@ export default function Dinner() {
             setLoading(true)
             setError(null)
             
-            const response = await fetch('http://192.168.18.58:4000/api/recipe/all/dinner')
+            const response = await fetch('https://recipe-app-rq23.vercel.app/api/recipe/all/dinner')
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
