@@ -69,42 +69,37 @@ export const useAuthStore = create((set, get) => ({
 
 // In your store/auth.js - UPDATE these functions:
 
+// store/auth.js  ▸  Login function
 Login: async (email, password) => {
-    set({ isLoading: true });
-    try {
-        const response = await fetch('https://recipe-app-rq23.vercel.app/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
-        });
+  try {
+    const res  = await fetch('https://recipe-app-rq23.vercel.app/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Login failed');
 
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Login failed');
-        }
+    // one atomic write → no race condition
+    await AsyncStorage.multiSet([
+      ['token', data.token],
+      ['user',  JSON.stringify(data.user)]
+    ]);
 
-        // FIXED: Store token as plain string (no JSON.stringify)
-        await AsyncStorage.setItem('token', data.token);
-        await AsyncStorage.setItem('user', JSON.stringify(data.user));
+    // update store
+    set({
+      token: data.token,
+      user:  data.user,
+      isAuthenticated: true
+    });
 
-        console.log('Token being stored:', data.token.substring(0, 30) + '...');
+    // ensure checkAuth runs AFTER storage finishes
+    setTimeout(() => get().checkAuth(), 0);
 
-        set({ 
-            user: data.user, 
-            token: data.token, 
-            isAuthenticated: true,
-            isLoading: false 
-        });
-        
-        return { success: true, message: 'Login successful', user: data.user, token: data.token };
-
-    } catch (error) {
-        set({ isLoading: false });
-        return { success: false, message: error.message || 'Login failed' };
-    }
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e.message };
+  }
 },
 
 checkAuth: async () => {

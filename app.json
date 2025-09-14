@@ -6,25 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "mobileapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "package": "com.shalom2025.Mobile_App"
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
+      "expo-image-picker",
       "expo-router",
       [
         "expo-splash-screen",
@@ -44,6 +27,9 @@
       "eas": {
         "projectId": "2e19eb13-fc47-4e35-a3ca-62e6625a845c"
       }
+    },
+    "android": {
+      "package": "com.shalom2025.Recipe_App"
     }
   }
 }
